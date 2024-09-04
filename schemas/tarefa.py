@@ -6,8 +6,8 @@ class TarefaCreate(BaseModel):
     descricao: str
     data_inicio: date
     data_fim: date
-    ativo: bool
 
 class Tarefa(TarefaCreate):
     responsavel_id: int
+    ativo: bool
     id: int

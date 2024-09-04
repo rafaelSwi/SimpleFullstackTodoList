@@ -21,7 +21,7 @@ def create_tarefa(db: authenticate_user, user, tarefa: TarefaCreate):
         descricao = tarefa.descricao,
         data_inicio = tarefa.data_inicio,
         data_fim = tarefa.data_fim,
-        ativo = tarefa.ativo,
+        ativo = True,
         responsavel_id = user.get('id')
     )
     db.add(_tarefa)
