@@ -12,29 +12,6 @@ from crud.tarefa_cadastro import get_tarefas_associated_with_logged_user
 tarefa_router = APIRouter()
 
 
-# RETORNA UMA TAREFA ESPECIFICA
-@tarefa_router.get('/{tarefa_id}')
-async def _get_tarefas_associated_with_logged_user(user: USER_DEPENDENCY, tarefa_id: int, db: Session = Depends(get_db)):
-    _tarefa = get_tarefa_by_id(db=db, tarefa_id=tarefa_id)
-    if _tarefa:
-        return _tarefa
-    else:
-        return Response(status_code=404)
-
-# DEFINE UMA TAREFA COMO ATIVO=FALSO PARA FIRMAR QUE FOI CONCLUIDA
-@tarefa_router.put('/{tarefa_id}/check')
-async def _get_tarefas_associated_with_logged_user(user: USER_DEPENDENCY, tarefa_id: int, db: Session = Depends(get_db)):
-    _tarefa = get_tarefa_by_id(db=db, tarefa_id=tarefa_id)
-    if _tarefa:
-        if not _tarefa.ativo:
-            return Response(status_code=417)
-        _tarefa.ativo = False
-        db.commit()
-        db.refresh(_tarefa)
-        return Response(status_code=200)
-    else:
-        return Response(status_code=404)
-
 # RETORNA UMA LISTA DE TAREFAS CRIADAS PELO USUARIO LOGADO
 @tarefa_router.get('/list')
 async def _get_tarefas_associated_with_logged_user(user: USER_DEPENDENCY, db: Session = Depends(get_db)):
@@ -60,3 +37,26 @@ async def _create(user: USER_DEPENDENCY, request: TarefaCreate, db: Session = De
     _tarefa_cadastro_create = TarefaCadastroCreate(tarefa_id=_tarefa.id)
     create_tarefa_cadastro_association(db=db, user=user, association=_tarefa_cadastro_create)
     return Response(status_code=200)
+
+# RETORNA UMA TAREFA ESPECIFICA
+@tarefa_router.get('/{tarefa_id}')
+async def _get_tarefas_associated_with_logged_user(user: USER_DEPENDENCY, tarefa_id: int, db: Session = Depends(get_db)):
+    _tarefa = get_tarefa_by_id(db=db, tarefa_id=tarefa_id)
+    if _tarefa:
+        return _tarefa
+    else:
+        return Response(status_code=404)
+
+# DEFINE UMA TAREFA COMO ATIVO=FALSO PARA FIRMAR QUE FOI CONCLUIDA
+@tarefa_router.put('/{tarefa_id}/check')
+async def _get_tarefas_associated_with_logged_user(user: USER_DEPENDENCY, tarefa_id: int, db: Session = Depends(get_db)):
+    _tarefa = get_tarefa_by_id(db=db, tarefa_id=tarefa_id)
+    if _tarefa:
+        if not _tarefa.ativo:
+            return Response(status_code=417)
+        _tarefa.ativo = False
+        db.commit()
+        db.refresh(_tarefa)
+        return Response(status_code=200)
+    else:
+        return Response(status_code=404)
