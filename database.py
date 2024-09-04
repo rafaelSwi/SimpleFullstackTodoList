@@ -2,15 +2,17 @@ import platform
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import json
 
-DB_URL = ''
-if platform.system() == "Linux":
-    DB_URL = 'postgresql://postgres:postgres@localhost/trabalho'
-elif platform.system() == "Darwin":
-    DB_URL = 'postgresql://postgres:admin@localhost/first_test'
-else:
-    print("os nao programado.")
-    exit()
+def confidencial():
+    with open("database.json", 'r') as file:
+        data = json.load(file)
+    return data
+
+DATABASE_NAME = confidencial().get('database_name')
+POSTGRESL_PSW = confidencial().get('postgresql_password')
+
+DB_URL = f'postgresql://postgres:{POSTGRESL_PSW}@localhost/{DATABASE_NAME}'
 
 engine = create_engine(DB_URL)
 
