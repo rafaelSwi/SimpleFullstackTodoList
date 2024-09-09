@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from fastapi.staticfiles import StaticFiles
 from database import engine
 from database import Base
 
@@ -17,6 +18,8 @@ app = FastAPI()
 @app.get("/")
 def home():
     return "API de Trabalho da Faculdade."
+
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 app.include_router(cadastro_router, prefix="/cadastro", tags=["cadastro"])
 app.include_router(tarefa_router, prefix="/tarefa", tags=["tarefa"])
