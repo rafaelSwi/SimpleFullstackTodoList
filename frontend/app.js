@@ -34,3 +34,5 @@ document
       document.getElementById("message").textContent = "An error occurred.";
     }
   });
+
+// u are gay
