@@ -9,10 +9,10 @@ def confidencial():
         data = json.load(file)
     return data
 
-DATABASE_NAME = confidencial().get('database_name')
-POSTGRESL_PSW = confidencial().get('postgresql_password')
+DATABASE_NAME = confidencial().get('t1_engenharia')
+POSTGRESL_PSW = confidencial().get('database1234')
 
-DB_URL = 'postgresql://postgres@localhost/gabriel_diniz'
+DB_URL = f'postgresql://postgres:{POSTGRESL_PSW}@localhost/{DATABASE_NAME}'
 
 engine = create_engine(DB_URL)
 
