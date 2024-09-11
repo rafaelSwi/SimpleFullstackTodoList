@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+  </head>
+  <body>
+    <h1>User Registration</h1>
+    <form id="register-form">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter your username"
+        required
+      />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      />
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div id="message"></div>
+    <!-- To display success/error messages -->
+
+    <script src="app.js"></script>
+    <!-- Link to the JavaScript file -->
+  </body>
+</html>
