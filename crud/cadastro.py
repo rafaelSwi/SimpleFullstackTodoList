@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 from fastapi import HTTPException
+=======
+>>>>>>> origin/master
 from encryption.functions import authenticate_user, get_password_hash
 from schemas.cadastro import CadastroCreate
 import models as model
@@ -10,6 +13,7 @@ def get_cadastro_by_id(db: authenticate_user, cadastro_id: int):
     return db.query(model.Cadastro).filter(model.Cadastro.id == cadastro_id).first()
 
 def create_cadastro(db: authenticate_user, cadastro: CadastroCreate):
+<<<<<<< HEAD
     # Check if username already exists
     existing_user = db.query(model.Cadastro).filter(model.Cadastro.username == cadastro.username).first()
     if existing_user:
@@ -25,3 +29,13 @@ def create_cadastro(db: authenticate_user, cadastro: CadastroCreate):
     db.commit()
     db.refresh(_cadastro)
     return _cadastro
+=======
+    _cadastro = model.Cadastro(
+        username=cadastro.username,
+        password_hash=get_password_hash(cadastro.password),
+        )
+    db.add(_cadastro)
+    db.commit()
+    db.refresh(_cadastro)
+    return _cadastro
+>>>>>>> origin/master
