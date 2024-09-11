@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+  </head>
+  <body>
+    <h1>To-Do List</h1>
+
+    <!-- Form to add a task -->
+    <form id="task-form">
+      <input
+        type="text"
+        id="task-desc"
+        placeholder="Task description"
+        required
+      />
+      <input type="date" id="task-start" placeholder="Start date" required />
+      <input type="date" id="task-end" placeholder="End date" required />
+      <button type="submit">Add Task</button>
+    </form>
+
+    <!-- Display list of tasks -->
+    <div id="task-list"></div>
+
+    <script src="app.js"></script>
+    <!-- Link to your to-do list JavaScript -->
+  </body>
+</html>
