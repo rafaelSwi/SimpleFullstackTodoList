@@ -1,0 +1,85 @@
+/* Styling for To-Do List App */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align at the top */
+  height: 100vh;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form,
+#task-list {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+form {
+  margin-bottom: 40px; /* Space between form and task list */
+}
+
+form input,
+form button {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+#task-list {
+  margin-top: 40px; /* Increase the space between form and task list */
+  max-height: 300px; /* Ensure a max height for the task list */
+  overflow-y: auto;
+  background-color: #fff; /* Ensure it has a card-like background */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.task-item {
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin-bottom: 15px; /* Increase the margin between task items */
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-item:nth-child(odd) {
+  background-color: #e9e9e9;
+}
+
+.task-item p {
+  margin: 0;
+}
