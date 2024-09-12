@@ -12,7 +12,7 @@ def confidencial():
 DATABASE_NAME = confidencial().get('database_name')
 POSTGRESL_PSW = confidencial().get('postgresql_password')
 
-DB_URL = 'postgresql://postgres@localhost/gabriel_diniz'
+DB_URL = f'postgresql://postgres:{POSTGRESL_PSW}@localhost/{DATABASE_NAME}'
 
 engine = create_engine(DB_URL)
 
