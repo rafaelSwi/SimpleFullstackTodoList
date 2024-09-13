@@ -21,19 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           const data = await response.json();
           document.getElementById("message").textContent =
-            "User registered successfully!";
+            "User registered successfully! Redirecting to the To-Do List...";
 
-          console.log("User registered, creating button...");
+          console.log("User registered, redirecting to To-Do List...");
 
-          // to-do list
-          const todoButton = document.createElement("button");
-          todoButton.textContent = "Go to To-Do List";
-          todoButton.onclick = () => {
+          // Automatically redirect to the to-do list after 2 seconds
+          setTimeout(() => {
             window.location.href = "todo.html";
-          };
-
-          document.getElementById("message").appendChild(todoButton);
-          console.log("Button created and appended.");
+          }, 2000); // 2000 milliseconds = 2 seconds
         } else if (response.status === 400) {
           const errorData = await response.json();
           document.getElementById("message").textContent = errorData.detail;
