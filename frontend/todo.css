@@ -47,7 +47,7 @@ form button {
 }
 
 form button {
-  background-color: #007bff;
+  background-color: #48bd0a;
   color: white;
   border: none;
   cursor: pointer;
@@ -55,7 +55,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #0056b3;
+  background-color: #48bd0a;
 }
 
 #task-list {
