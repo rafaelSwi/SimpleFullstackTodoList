@@ -5,9 +5,13 @@ from sqlalchemy.ext.declarative import declarative_base
 import json
 
 def confidencial():
-    with open("database.json", 'r') as file:
-        data = json.load(file)
-    return data
+    try:
+        with open("database.json", 'r') as file:
+            data = json.load(file)
+        return data
+    except:
+        print("[!] File 'database.json' not found. API initialization interrupted.")
+        exit()
 
 DATABASE_NAME = confidencial().get('database_name')
 POSTGRESL_PSW = confidencial().get('postgresql_password')
