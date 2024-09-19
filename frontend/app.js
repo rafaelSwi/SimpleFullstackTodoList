@@ -1,57 +1,88 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // seleciona o formulário de registro quando o documento é carregado
+  // User registration flow
   const registerForm = document.getElementById("register-form");
   if (registerForm)
-    // adiciona um evento de "submit" ao formulário de registro
     registerForm.addEventListener("submit", async (e) => {
-      e.preventDefault(); // impede o comportamento padrão de recarregar a página
-      // obtém os valores dos campos de nome de usuário e senha
+      e.preventDefault();
       const username = document.getElementById("username").value,
         password = document.getElementById("password").value;
+
       try {
-        // envia uma requisição POST para o backend para criar um novo usuário
         const res = await fetch("http://127.0.0.1:8000/cadastro/create", {
           method: "POST",
-          headers: { "Content-Type": "application/json" }, // define o tipo de conteúdo como JSON
-          body: JSON.stringify({ username, password }), // envia os dados do formulário no corpo da requisição
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
         });
-        // seleciona o elemento de mensagem para exibir o resultado da requisição
+
         const msgEl = document.getElementById("message");
         if (res.ok) {
-          // se a resposta for bem-sucedida, exibe uma mensagem de sucesso
           msgEl.textContent =
-            "user registered successfully! redirecting to the to-do list...";
-          // redireciona para a página da lista de tarefas após 2 segundos
+            "User registered successfully! Redirecting to the to-do list...";
           setTimeout(() => (window.location.href = "todo.html"), 2000);
         } else {
-          // se a resposta falhar, exibe a mensagem de erro do backend ou uma mensagem padrão
           const errData = await res.json();
-          msgEl.textContent = errData.detail || "failed to register user.";
+          msgEl.textContent = errData.detail || "Failed to register user.";
         }
       } catch (error) {
-        // em caso de erro, exibe uma mensagem de erro no console e na página
-        console.error("error:", error);
-        document.getElementById("message").textContent = "an error occurred.";
+        console.error("Error:", error);
+        document.getElementById("message").textContent = "An error occurred.";
       }
     });
 
-  // seleciona o formulário de tarefas
+  // Task submission flow
   const taskForm = document.getElementById("task-form");
   if (taskForm)
-    // adiciona um evento de "submit" ao formulário de tarefas
     taskForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // impede o comportamento padrão de recarregar a página
-      // obtém os valores dos campos de descrição, data de início e data de término da tarefa
+      e.preventDefault();
+
       const taskDesc = document.getElementById("task-desc").value,
         taskStart = document.getElementById("task-start").value,
         taskEnd = document.getElementById("task-end").value;
-      // exibe os valores no console para depuração
-      console.log("task:", taskDesc, taskStart, taskEnd);
-      // cria um novo elemento de div para exibir a tarefa
-      const taskItem = document.createElement("div");
-      // define o texto do novo elemento como a descrição e datas da tarefa
-      taskItem.textContent = `${taskDesc} (from: ${taskStart} to: ${taskEnd})`;
-      // adiciona o novo elemento de tarefa à lista de tarefas
-      document.getElementById("task-list").appendChild(taskItem);
+
+      if (!taskDesc || !taskStart || !taskEnd) {
+        alert("All fields are required");
+        return;
+      }
+
+      // Create task object
+      const task = {
+        description: taskDesc,
+        start: taskStart,
+        end: taskEnd,
+        completed: false,
+      };
+
+      // Add task to the list
+      addTaskToList(task);
+
+      // Clear form fields
+      taskForm.reset();
     });
 });
+
+function addTaskToList(task) {
+  const taskList = document.getElementById("task-list");
+
+  // Create task container
+  const taskItem = document.createElement("div");
+  taskItem.classList.add("task-item");
+
+  // Create checkbox
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.addEventListener("change", function () {
+    task.completed = checkbox.checked;
+    taskItem.classList.toggle("completed", task.completed);
+  });
+
+  // Create task description
+  const taskDescription = document.createElement("span");
+  taskDescription.textContent = `${task.description} (from: ${task.start} to: ${task.end})`;
+
+  // Append checkbox and description to task item
+  taskItem.appendChild(checkbox);
+  taskItem.appendChild(taskDescription);
+
+  // Append task item to task list
+  taskList.appendChild(taskItem);
+}
